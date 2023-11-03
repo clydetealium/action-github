@@ -33,6 +33,7 @@ jobs:
         uses: clydetealium/action-github/findIssue@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+        id: identify-jira-issues
 
       - name: Use Jira Issues
         run: |
