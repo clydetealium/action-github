@@ -16,6 +16,8 @@ jobs:
       
       - name: Identify Jira Issues
         uses: clydetealium/action-github/findPRIssue@handle-jiggle
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
         id: identify-jira-issues
       
       - name: Log issues

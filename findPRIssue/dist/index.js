@@ -1,6 +1,60 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 1809:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const core = __nccwpck_require__(1359);
+const github = __nccwpck_require__(83);
+
+async function main() {
+
+  try {
+    const context = github.context;
+
+    const commitMessages = getCommitMessages(context);
+    const prDescription = context.payload.pull_request.body;
+    const sourceBranchName = context.payload.pull_request.head.ref;
+    const jiraIssuePattern = /[A-Z]+-\d{3,}/g;
+
+    const issues = [
+      ...commitMessages.join(' ').match(jiraIssuePattern) || [],
+      ...prDescription.match(jiraIssuePattern) || [],
+      ...sourceBranchName.match(jiraIssuePattern) || [],
+    ];
+
+    console.log('Identified Jira issues:', issues);
+    core.setOutput('jira-issues', issues.join(','));
+
+  } catch (error) {
+    core.setFailed(`Error: ${error.message}`);
+  }
+}
+
+async function getCommitMessages(context) {
+  const token = core.getInput('github-token');
+  const octokit = github.getOctokit(token);
+
+  const owner = context.repo.owner;
+  const repo = context.repo.repo;
+  const prNumber = context.payload.pull_request.number;
+
+  const response = await octokit.rest.pulls.listCommits({
+    owner,
+    repo,
+    pull_number: prNumber,
+  });
+
+  const commitMessages = response.data.map((commit) => commit.commit.message);
+  return commitMessages;
+}
+
+main();
+
+module.exports = main;
+
+/***/ }),
+
 /***/ 7667:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -30120,37 +30174,12 @@ module.exports = require("zlib");
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
-const core = __nccwpck_require__(1359);
-const github = __nccwpck_require__(83);
-
-try {
-  const context = github.context;
-
-  console.log('Context:', JSON.stringify(context));
-
-  const commitMessages = context.payload.commits?.map((commit) => commit.message);
-  const prDescription = context.payload.pull_request?.body;
-  const sourceBranchName = context.payload.pull_request?.head.ref;
-  const jiraIssuePattern = /[A-Z]+-\d{3,}/g;
-
-  const issues = [
-    ...commitMessages.join(' ').match(jiraIssuePattern) || [],
-    ...prDescription.match(jiraIssuePattern) || [],
-    ...sourceBranchName.match(jiraIssuePattern) || [],
-  ];
-
-  console.log('Identified Jira issues:', issues);
-  core.setOutput('jira-issues', issues.join(','));
-
-} catch (error) {
-  core.setFailed(`Error: ${error.message}`);
-}
-
-})();
-
-module.exports = __webpack_exports__;
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __nccwpck_require__(1809);
+/******/ 	module.exports = __webpack_exports__;
+/******/ 	
 /******/ })()
 ;
