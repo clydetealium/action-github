@@ -11,6 +11,8 @@ async function main() {
     const sourceBranchName = context.payload.pull_request.head.ref;
     const jiraIssuePattern = /[A-Z]+-\d{3,}/g;
 
+    console.log('commitMessages', commitMessages);
+
     const issues = [
       ...commitMessages.join(' ').match(jiraIssuePattern) || [],
       ...prDescription.match(jiraIssuePattern) || [],
