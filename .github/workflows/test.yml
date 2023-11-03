@@ -1,15 +1,9 @@
 name: Jira Issue Check
 
 on:
-  pull_request:
+  push:
     branches:
-      - master
-    paths:
-      - 'all_modules/liquibase_db_schema/**'
-    types:
-      - opened
-      - edited
-      - synchronize
+      - handle-jiggle
   workflow_dispatch: {}
 
 jobs:
