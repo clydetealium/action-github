@@ -1,8 +1,12 @@
 name: 'Jira issue query'
 description: 'Queries a given jira issue id'
+inputs:
+  github-token:
+    description: 'The github token'
+    required: true
 outputs:
   issue-keys:
     description: 'A comma delimited list of issue keys'
 runs:
   using: 'node16'
-  main: 'main.js'
+  main: 'dist/index.js'

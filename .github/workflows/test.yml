@@ -1,0 +1,25 @@
+name: Jira Issue Check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  jira_issue_check:
+    runs-on: ubuntu-20.04
+    name: ci tests
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Identify Jira Issues
+        uses: clydetealium/action-github/findPRIssue@handle-jiggle
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+        id: identify-jira-issues
+      
+      - name: Log issues
+        run: |
+          echo "Found Jira Issues: ${{ steps.identify-jira-issues.outputs.issue-keys }}"
