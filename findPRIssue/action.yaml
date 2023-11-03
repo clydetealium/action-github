@@ -5,4 +5,4 @@ outputs:
     description: 'A comma delimited list of issue keys'
 runs:
   using: 'node16'
-  main: 'main.js'
+  main: '../lib/find-pr-issue.js'

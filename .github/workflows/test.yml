@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v3
       
       - name: Identify Jira Issues
-        uses: clydetealium/action-github/findPRIssue@v1.0.3
+        uses: clydetealium/action-github/findPRIssue@handle-jiggle
         id: identify-jira-issues
       
       - name: Log issues
