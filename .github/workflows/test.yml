@@ -1,0 +1,30 @@
+name: Jira Issue Check
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'all_modules/liquibase_db_schema/**'
+    types:
+      - opened
+      - edited
+      - synchronize
+  workflow_dispatch: {}
+
+jobs:
+  jira_issue_check:
+    runs-on: ubuntu-20.04
+    name: ci tests
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Identify Jira Issues
+        uses: clydetealium/action-github/findPRIssue@v1.0.3
+        id: identify-jira-issues
+      
+      - name: Log issues
+        run: |
+          echo "Found Jira Issues: ${{ steps.identify-jira-issues.outputs.issue-keys }}"
