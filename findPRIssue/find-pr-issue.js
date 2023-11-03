@@ -42,6 +42,8 @@ async function getCommitMessages(context) {
   });
 
   const commitMessages = response.data.map((commit) => commit.commit.message);
+  console.log( 'commitMessages', commitMessages);
+  console.log( 'response.data', response.data);
   return commitMessages;
 }
 
