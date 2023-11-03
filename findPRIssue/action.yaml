@@ -4,5 +4,5 @@ outputs:
   issue-keys:
     description: 'A comma delimited list of issue keys'
 runs:
-  using: 'node18'
+  using: 'node16'
   main: 'main.js'
