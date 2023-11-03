@@ -6,7 +6,7 @@ async function main() {
   try {
     const context = github.context;
 
-    const commitMessages = getCommitMessages(context);
+    const commitMessages = await getCommitMessages(context);
     const prDescription = context.payload.pull_request.body;
     const sourceBranchName = context.payload.pull_request.head.ref;
     const jiraIssuePattern = /[A-Z]+-\d{3,}/g;
