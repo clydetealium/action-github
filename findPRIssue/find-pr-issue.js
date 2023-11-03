@@ -3,7 +3,10 @@ const github = require('@actions/github');
 
 try {
   const context = github.context;
-  const commitMessages = context.payload.commits.map((commit) => commit.message);
+
+  console.log('Context:', JSON.stringify(context));
+
+  const commitMessages = context.payload.commits?.map((commit) => commit.message);
   const prDescription = context.payload.pull_request?.body;
   const sourceBranchName = context.payload.pull_request?.head.ref;
   const jiraIssuePattern = /[A-Z]+-\d{3,}/g;
