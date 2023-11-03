@@ -1,0 +1,8 @@
+name: 'Jira issue query'
+description: 'Queries a given jira issue id'
+outputs:
+  issue-keys:
+    description: 'A comma delimited list of issue keys'
+runs:
+  using: 'node18'
+  main: 'main.js'
