@@ -4,6 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
+    "install": "npm install --userconfig ./.npmrc",
     "setup": "npm install --userconfig ./.npmrc",
     "test": "jest --clearCache && jest --no-cache --runInBand"
   },
