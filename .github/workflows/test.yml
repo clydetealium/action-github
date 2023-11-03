@@ -1,10 +1,9 @@
 name: Jira Issue Check
 
 on:
-  push:
+  pull_request:
     branches:
-      - handle-jiggle
-  workflow_dispatch: {}
+      - main
 
 jobs:
   jira_issue_check:
