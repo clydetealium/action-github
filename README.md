@@ -25,6 +25,11 @@ The actions in this repo are implemented in javascript. They are built using ncc
 ncc build findPRIssue/find-pr-issue.js --license licenses.txt --out findPRIssue/dist
 ```
 
+or run:
+```
+npm run build
+```
+
 You'll need to install ncc globally to run this command:
 ```
 npm install -g @vercel/ncc
